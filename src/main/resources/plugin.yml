@@ -1,0 +1,7 @@
+name: Imperium
+version: '${project.version}'
+main: com.core.imperium.Imperium
+api-version: 1.19
+authors: [ JoeyBalardeta ]
+description: A plugin for multiplayer Minecraft
+website: https://github.com/joeybalardeta/Imperium
