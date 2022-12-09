@@ -13,7 +13,9 @@ public class Utils {
     }
 
     public static void sendAdvancedMessage(Player player, TextComponent message){
-        player.spigot().sendMessage(message);
+        TextComponent prefix = new TextComponent(ChatColor.WHITE + "[" + ChatColor.GOLD + "Imperium" + ChatColor.WHITE + "] ");
+        prefix.addExtra(message);
+        player.spigot().sendMessage(prefix);
     }
 
     public static void sendError(Player player, String message){
@@ -21,6 +23,6 @@ public class Utils {
     }
 
     public static void consoleLog(Level level, String message){
-        Imperium.getInstance().getLogger().log(level, message);
+        Imperium.getInstance().getLogger().log(level, Imperium.PLUGINNAME + ": " + message);
     }
 }

@@ -58,7 +58,7 @@ public class FileIO {
             }
         }
 
-        Imperium.getInstance().getLogger().log(Level.INFO, "Nexus | Writing data to storage.");
+        // Imperium.getInstance().getLogger().log(Level.INFO, "Nexus | Writing data to storage.");
     }
 
 

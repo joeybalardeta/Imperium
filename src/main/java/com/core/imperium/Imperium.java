@@ -1,5 +1,6 @@
 package com.core.imperium;
 
+import com.core.imperium.command.CommandManager;
 import com.core.imperium.event.EventManager;
 import com.core.imperium.nexus.Nexus;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,6 +13,7 @@ public final class Imperium extends JavaPlugin {
     private static Imperium instance;
 
     public static EventManager eventManager;
+    public static CommandManager commandManager;
     public static Nexus nexus;
 
     public static Imperium getInstance(){
@@ -26,6 +28,9 @@ public final class Imperium extends JavaPlugin {
 
         eventManager = new EventManager();
         eventManager.init();
+
+        commandManager = new CommandManager();
+        commandManager.init();
 
         nexus = new Nexus();
         nexus.init();

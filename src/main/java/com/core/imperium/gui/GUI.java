@@ -18,7 +18,7 @@ public class GUI {
 
 
     public GUI(int rows, String name) {
-        this.inventory = Bukkit.createInventory(null, rows * 9, ChatColor.RED + "Command" + ChatColor.GRAY + "Tweaks");
+        this.inventory = Bukkit.createInventory(null, rows * 9, ChatColor.GOLD + "Imperium" + ChatColor.DARK_GRAY + " | " + name);
         this.slots = rows * 9;
         this.name = ChatColor.stripColor(name);
     }
