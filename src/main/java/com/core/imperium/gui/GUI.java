@@ -36,6 +36,10 @@ public class GUI {
         return this.name;
     }
 
+   public void setItem(int slot, ItemStack item) {
+       this.inventory.setItem(slot, item);
+   }
+
     // set the background of the gui
     public void setBackground(Material material) {
         ItemStack item = new ItemStack(material);

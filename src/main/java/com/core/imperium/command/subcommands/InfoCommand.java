@@ -25,7 +25,7 @@ public class InfoCommand extends SubCommand {
 
         TextComponent message = new TextComponent(ChatColor.GOLD + "GitHub");
         message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/joeybalardeta/Imperium"));
-        message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Visit the GitHub repository!")));
+        message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.ITALIC + "" + ChatColor.GOLD + "Visit the GitHub repository!")));
         Utils.sendAdvancedMessage(p, message);
     }
 }
