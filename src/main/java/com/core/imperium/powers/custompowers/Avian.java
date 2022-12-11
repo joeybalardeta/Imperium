@@ -12,6 +12,8 @@ public class Avian extends Power {
     public Avian() {
         super();
 
+        this.powerString = "avian";
+
         this.powerIcon = new PowerIcon();
 
         this.powerIcon.setIcon(new ItemStack(Material.FEATHER));

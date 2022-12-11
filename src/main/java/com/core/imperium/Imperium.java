@@ -3,6 +3,7 @@ package com.core.imperium;
 import com.core.imperium.command.CommandManager;
 import com.core.imperium.event.EventManager;
 import com.core.imperium.nexus.Nexus;
+import com.core.imperium.powers.Power;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
@@ -32,6 +33,8 @@ public final class Imperium extends JavaPlugin {
         commandManager = new CommandManager();
         commandManager.init();
 
+        Power.initPowers();
+
         nexus = new Nexus();
         nexus.init();
 
@@ -41,6 +44,8 @@ public final class Imperium extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+
+        nexus.fileIO.save();
 
         instance = null;
     }

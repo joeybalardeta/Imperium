@@ -1,6 +1,7 @@
 package com.core.imperium.event;
 
 import com.core.imperium.Imperium;
+import com.core.imperium.nexus.Nexus;
 import com.core.imperium.player.PlayerPlus;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -28,6 +29,7 @@ public class PlayerEvent implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event){
+        Imperium.nexus.fileIO.writePlayerPlus(PlayerPlus.getPlayerPlus(event.getPlayer()));
         PlayerPlus.getPlayerPlus(event.getPlayer()).removePlayerPlus();
     }
 

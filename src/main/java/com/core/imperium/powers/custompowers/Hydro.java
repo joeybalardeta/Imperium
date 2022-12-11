@@ -12,6 +12,8 @@ public class Hydro extends Power {
     public Hydro() {
         super();
 
+        this.powerString = "hydro";
+
         this.powerIcon = new PowerIcon();
 
         this.powerIcon.setIcon(new ItemStack(Material.COD));

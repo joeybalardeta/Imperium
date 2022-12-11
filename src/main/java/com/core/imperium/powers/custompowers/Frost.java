@@ -12,6 +12,8 @@ public class Frost extends Power {
     public Frost() {
         super();
 
+        this.powerString = "frost";
+
         this.powerIcon = new PowerIcon();
 
         this.powerIcon.setIcon(new ItemStack(Material.BLUE_ICE));

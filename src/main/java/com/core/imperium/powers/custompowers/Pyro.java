@@ -12,6 +12,8 @@ public class Pyro extends Power {
     public Pyro() {
         super();
 
+        this.powerString = "pyro";
+
         this.powerIcon = new PowerIcon();
 
         this.powerIcon.setIcon(new ItemStack(Material.BLAZE_POWDER));

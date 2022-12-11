@@ -2,6 +2,7 @@ package com.core.imperium.nexus;
 
 import com.core.imperium.Imperium;
 import com.core.imperium.player.PlayerPlus;
+import com.core.imperium.powers.Power;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -65,10 +66,18 @@ public class FileIO {
 
     public void writePlayerPlus(PlayerPlus playerPlus){
         Nexus.playerDataConfig.set("users." + playerPlus.getPlayer().getUniqueId() + ".name", playerPlus.getPlayer().getDisplayName());
+        Nexus.playerDataConfig.set("users." + playerPlus.getPlayer().getUniqueId() + ".power", playerPlus.getPower().getPowerString());
     }
 
     public void loadPlayerPlus(Player p){
         PlayerPlus playerPlus = new PlayerPlus(p);
+        Power playerPower = null;
+        for (Power power : Power.getPowerList()) {
+            if (power.getPowerString().equals(Nexus.playerDataConfig.get("users." + playerPlus.getPlayer().getUniqueId() + ".power"))) {
+                playerPower = power;
+            }
+        }
+        playerPlus.setPower(playerPower);
     }
 
     public void scheduleFileTasks(){
@@ -76,9 +85,13 @@ public class FileIO {
         scheduler.scheduleSyncRepeatingTask(Imperium.getInstance(), new Runnable() {
             @Override
             public void run() {
+                for (Player online : Bukkit.getOnlinePlayers()) {
+                    Imperium.nexus.fileIO.writePlayerPlus(PlayerPlus.getPlayerPlus(online));
+                }
+
                 Imperium.nexus.fileIO.save(); // save all plugin data files
             }
-        }, 0L, 1200L);
+        }, 0L, 3600L);
 
     }
 }

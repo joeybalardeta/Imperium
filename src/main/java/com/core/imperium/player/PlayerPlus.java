@@ -4,6 +4,7 @@ import com.core.imperium.Imperium;
 import com.core.imperium.gui.GUI;
 import com.core.imperium.particles.ParticleEffect;
 import com.core.imperium.particles.particleeffects.FlameEffect;
+import com.core.imperium.powers.Power;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -14,6 +15,8 @@ public class PlayerPlus {
 
     // gui in player class is so their copy of the gui that they are viewing doesn't get replaced by another one
     private GUI gui;
+
+    private Power power;
 
     private ParticleEffect particleEffect;
 
@@ -44,6 +47,10 @@ public class PlayerPlus {
         this.particleEffect = particleEffect;
     }
 
+    public GUI getGUI() {
+        return this.gui;
+    }
+
     public void setGUI(GUI gui) {
         this.gui = gui;
         if (this.gui != null) {
@@ -51,9 +58,18 @@ public class PlayerPlus {
         }
     }
 
-    public GUI getGUI() {
-        return this.gui;
+    public void closeGUI() {
+        this.getPlayer().closeInventory();
     }
+
+    public Power getPower() {
+        return this.power;
+    }
+
+    public void setPower(Power power) {
+        this.power = power;
+    }
+
 
     public ParticleEffect getParticleEffect(){
         return particleEffect;
