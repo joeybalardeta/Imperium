@@ -5,6 +5,7 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 
+import java.util.Random;
 import java.util.logging.Level;
 
 public class Utils {
@@ -24,5 +25,12 @@ public class Utils {
 
     public static void consoleLog(Level level, String message){
         Imperium.getInstance().getLogger().log(level, Imperium.PLUGINNAME + ": " + message);
+    }
+
+    public static boolean RNG(double chance) {
+        Random random = new Random();
+        double generated = random.nextDouble();
+
+        return ((1 - chance) <= generated);
     }
 }

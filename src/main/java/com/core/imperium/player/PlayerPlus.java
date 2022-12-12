@@ -4,7 +4,11 @@ import com.core.imperium.Imperium;
 import com.core.imperium.gui.GUI;
 import com.core.imperium.particles.ParticleEffect;
 import com.core.imperium.particles.particleeffects.FlameEffect;
+import com.core.imperium.particles.particleeffects.LightningEffect;
+import com.core.imperium.particles.particleeffects.SnowEffect;
+import com.core.imperium.particles.particleeffects.WaterEffect;
 import com.core.imperium.powers.Power;
+import com.core.imperium.powers.custompowers.Pyro;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -98,5 +102,56 @@ public class PlayerPlus {
             rotation += 360.0;
         }
         return rotation;
+    }
+
+    public void reloadMaxHealth() {
+        if (this.getPower() == null) {
+            this.getPlayer().setMaxHealth(20f);
+            return;
+        }
+
+        this.getPlayer().setMaxHealth(this.getPower().getMaxHealth());
+    }
+
+    public void startPowerParticles() {
+        if (this.getPower() == null) {
+            return;
+        }
+
+        switch (this.getPower().getParticles()) {
+            case "flame":
+                this.setParticleEffect(new FlameEffect(this));
+                break;
+
+            case "snow":
+                this.setParticleEffect(new SnowEffect(this));
+                break;
+
+            case "water":
+                this.setParticleEffect(new WaterEffect(this));
+                break;
+
+            case "lightning":
+                this.setParticleEffect(new LightningEffect(this));
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
+    public void stopParticles() {
+        if (this.particleEffect == null) {
+            return;
+        }
+
+        this.particleEffect.end();
+    }
+
+    public void reloadPowerAugmentations() {
+        this.reloadMaxHealth();
+        this.stopParticles();
+        this.startPowerParticles();
     }
 }

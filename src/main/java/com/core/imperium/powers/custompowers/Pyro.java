@@ -14,6 +14,8 @@ public class Pyro extends Power {
 
         this.powerString = "pyro";
 
+        this.particles = "flame";
+
         this.powerIcon = new PowerIcon();
 
         this.powerIcon.setIcon(new ItemStack(Material.BLAZE_POWDER));

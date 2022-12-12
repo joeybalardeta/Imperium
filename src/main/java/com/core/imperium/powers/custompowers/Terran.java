@@ -14,6 +14,8 @@ public class Terran extends Power {
 
         this.powerString = "terran";
 
+        this.particles = "terran";
+
         this.powerIcon = new PowerIcon();
 
         this.powerIcon.setIcon(new ItemStack(Material.GRASS_BLOCK));

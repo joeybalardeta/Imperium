@@ -40,6 +40,10 @@ public class GUIEvent implements Listener {
 
             int index = slot - 22 + (Power.getPowerList().size() / 2);
 
+            if (index >= Power.getPowerList().size()) {
+                return;
+            }
+
             if (playerPlus.getPower() == null) {
                 Power power = Power.getPowerList().get(index);
 
@@ -56,7 +60,10 @@ public class GUIEvent implements Listener {
                 // Utils.sendError(playerPlus.getPlayer(), "You already have a power!");
             }
 
+            playerPlus.reloadPowerAugmentations();
+
             playerPlus.closeGUI();
+
         }
     }
 }

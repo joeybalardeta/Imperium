@@ -18,6 +18,9 @@ public class PlayerEvent implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Imperium.nexus.fileIO.loadPlayerPlus(event.getPlayer());
 
+        PlayerPlus playerPlus = PlayerPlus.getPlayerPlus(event.getPlayer());
+        playerPlus.reloadPowerAugmentations();
+
         // delayed event, probably gonna use this to send messages to users on join.
         BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         scheduler.scheduleSyncDelayedTask(instance, new Runnable() {
@@ -29,12 +32,38 @@ public class PlayerEvent implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event){
-        Imperium.nexus.fileIO.writePlayerPlus(PlayerPlus.getPlayerPlus(event.getPlayer()));
-        PlayerPlus.getPlayerPlus(event.getPlayer()).removePlayerPlus();
+        PlayerPlus playerPlus = PlayerPlus.getPlayerPlus(event.getPlayer());
+
+        Imperium.nexus.fileIO.writePlayerPlus(playerPlus);
+
+        playerPlus.stopParticles();
+
+        playerPlus.removePlayerPlus();
     }
 
     @EventHandler
-    public void onConsume(PlayerItemConsumeEvent event) {
-        Player p = event.getPlayer();
+    public void onPortalEvent(PlayerPortalEvent event) {
+        PlayerPlus playerPlus = PlayerPlus.getPlayerPlus(event.getPlayer());
+        playerPlus.reloadPowerAugmentations();
+    }
+
+    @EventHandler
+    public void onRespawnEvent(PlayerRespawnEvent event) {
+        PlayerPlus playerPlus = PlayerPlus.getPlayerPlus(event.getPlayer());
+        playerPlus.reloadPowerAugmentations();
+    }
+
+    @EventHandler
+    public void onBedEnter(PlayerBedEnterEvent event) {
+        PlayerPlus playerPlus = PlayerPlus.getPlayerPlus(event.getPlayer());
+
+        playerPlus.stopParticles();
+    }
+
+    @EventHandler
+    public void onBedExit(PlayerBedLeaveEvent event) {
+        PlayerPlus playerPlus = PlayerPlus.getPlayerPlus(event.getPlayer());
+
+        playerPlus.startPowerParticles();
     }
 }

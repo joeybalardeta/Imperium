@@ -13,29 +13,31 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class Frost extends Power {
-    public Frost() {
+public class Bolt extends Power {
+    public Bolt() {
         super();
 
-        this.powerString = "frost";
+        this.powerString = "bolt";
 
-        this.particles = "snow";
+        this.particles = "lightning";
 
         this.powerIcon = new PowerIcon();
 
-        this.powerIcon.setIcon(new ItemStack(Material.BLUE_ICE));
+        this.powerIcon.setIcon(new ItemStack(Material.LIGHTNING_ROD));
 
-        this.powerIcon.setName(ChatColor.AQUA + "Frost");
-        this.powerIcon.setDescription("Frosts are often depicted as lone wanderers, not much is known about them, just don't let them freeze you.");
+        this.powerIcon.setName(ChatColor.YELLOW + "Bolt");
+        this.powerIcon.setDescription("Bolts are the light that erupts before thunder, with the ability to control electrons at will, you might not want to get too close.");
 
         // abilities
-        Ability arcticWind = new Ability(ChatColor.BLUE + "Arctic Wind", AbilityType.PASSIVE, "regenerate health faster at high altitudes");
-        Ability blackIce = new Ability(ChatColor.DARK_PURPLE + "Black Ice", AbilityType.ACTIVE, "chance to freeze enemies on hit");
+        Ability currentSpike = new Ability(ChatColor.DARK_RED + "Current Spike", AbilityType.PASSIVE, "regenerate health faster, jump higher, and deal more damage during thunderstorms");
+        Ability superconductor = new Ability(ChatColor.GOLD + "Superconductor", AbilityType.PASSIVE, "nearby lightning strikes amplify the Current Spike passive");
+        Ability capacitor = new Ability(ChatColor.DARK_PURPLE + "Capacitor", AbilityType.ACTIVE, "launch forward when guarding with a shield");
 
 
         // adding the abilities to the GUI (specifically the lore of the ItemStack that is used to signify the power)
-        this.powerIcon.getAbilities().add(arcticWind);
-        this.powerIcon.getAbilities().add(blackIce);
+        this.powerIcon.getAbilities().add(currentSpike);
+        this.powerIcon.getAbilities().add(superconductor);
+        this.powerIcon.getAbilities().add(capacitor);
 
         this.powerIcon.reloadIcon();
     }
@@ -48,7 +50,7 @@ public class Frost extends Power {
 
         PlayerPlus playerPlus = PlayerPlus.getPlayerPlus((Player) event.getDamager());
 
-        if (playerPlus.getPower() instanceof Frost) {
+        if (playerPlus.getPower() instanceof Bolt) {
             if (Utils.RNG(0.3)) {
                 event.getEntity().setFreezeTicks(event.getEntity().getFreezeTicks() + 20);
             }

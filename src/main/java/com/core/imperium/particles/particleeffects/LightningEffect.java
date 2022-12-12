@@ -1,16 +1,18 @@
 package com.core.imperium.particles.particleeffects;
 
-import com.core.imperium.player.PlayerPlus;
 import com.core.imperium.particles.ParticleEffect;
+import com.core.imperium.player.PlayerPlus;
+import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.util.Vector;
 
 import java.util.Random;
 
-public class FlameEffect extends ParticleEffect {
-    public FlameEffect(PlayerPlus playerPlus) {
+public class LightningEffect extends ParticleEffect {
+    public LightningEffect(PlayerPlus playerPlus) {
         super(playerPlus);
-        this.start(2);
+        this.start(4);
     }
 
     @Override
@@ -30,7 +32,8 @@ public class FlameEffect extends ParticleEffect {
             Location loc = this.getPlayerPlus().getPlayer().getLocation();
             Location first = loc.clone().add(Math.cos(rotation + lookDir) * distance, height, Math.sin(rotation + lookDir) * distance);
 
-            this.getPlayerPlus().getPlayer().getWorld().spawnParticle(Particle.FLAME, first, 0);
+            this.getPlayerPlus().getPlayer().getWorld().spawnParticle(Particle.ELECTRIC_SPARK, first, 0);
+
         }
     }
 }
