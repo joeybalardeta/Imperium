@@ -1,5 +1,6 @@
 package com.core.imperium.powers.custompowers;
 
+import com.core.imperium.Imperium;
 import com.core.imperium.player.PlayerPlus;
 import com.core.imperium.powers.Ability;
 import com.core.imperium.powers.AbilityType;
@@ -7,11 +8,16 @@ import com.core.imperium.powers.Power;
 import com.core.imperium.powers.PowerIcon;
 import com.core.imperium.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class Frost extends Power {
     public Frost() {
@@ -40,6 +46,35 @@ public class Frost extends Power {
         this.powerIcon.reloadIcon();
     }
 
+    @Override
+    protected void registerPowerTasks() {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(Imperium.getInstance(), new Runnable() {
+            @Override
+            public void run(){
+                for (Player online : Bukkit.getOnlinePlayers()) {
+                    PlayerPlus playerPlus = PlayerPlus.getPlayerPlus(online);
+                    Power power = playerPlus.getPower();
+
+                    if (!playerPlus.hasPower()) {
+                        return;
+                    }
+
+                    if (online.getWorld().getEnvironment().equals(World.Environment.NETHER)) {
+                        return;
+                    }
+
+                    if (power instanceof Frost) {
+                        if (online.getLocation().getBlockY() >= 140) {
+                            if (!playerPlus.hasPotionEffect(PotionEffectType.REGENERATION, 0, 40)) {
+                                online.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 0, false, false, true));
+                            }
+                        }
+                    }
+                }
+            }
+        }, 0, 10L);
+    }
+
     @EventHandler
     public void onPlayerHit(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player)) {
@@ -51,6 +86,25 @@ public class Frost extends Power {
         if (playerPlus.getPower() instanceof Frost) {
             if (Utils.RNG(0.3)) {
                 event.getEntity().setFreezeTicks(event.getEntity().getFreezeTicks() + 20);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onDamageTaken(EntityDamageEvent event) {
+        if (!(event.getEntity() instanceof Player)) {
+            return;
+        }
+
+        PlayerPlus playerPlus = PlayerPlus.getPlayerPlus((Player) event.getEntity());
+
+        if (!playerPlus.hasPower()) {
+            return;
+        }
+
+        if (playerPlus.getPower() instanceof Frost) {
+            if (event.getCause() == EntityDamageEvent.DamageCause.FREEZE) {
+                event.setCancelled(true);
             }
         }
     }

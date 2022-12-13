@@ -41,19 +41,4 @@ public class Bolt extends Power {
 
         this.powerIcon.reloadIcon();
     }
-
-    @EventHandler
-    public void onPlayerHit(EntityDamageByEntityEvent event) {
-        if (!(event.getDamager() instanceof Player)) {
-            return;
-        }
-
-        PlayerPlus playerPlus = PlayerPlus.getPlayerPlus((Player) event.getDamager());
-
-        if (playerPlus.getPower() instanceof Bolt) {
-            if (Utils.RNG(0.3)) {
-                event.getEntity().setFreezeTicks(event.getEntity().getFreezeTicks() + 20);
-            }
-        }
-    }
 }

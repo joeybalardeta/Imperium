@@ -10,6 +10,8 @@ import com.core.imperium.particles.particleeffects.WaterEffect;
 import com.core.imperium.powers.Power;
 import com.core.imperium.powers.custompowers.Pyro;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashMap;
 
@@ -111,6 +113,28 @@ public class PlayerPlus {
         }
 
         this.getPlayer().setMaxHealth(this.getPower().getMaxHealth());
+    }
+
+    /**
+     * Returns a boolean detailing if the player has a set potion effect with
+     * an equivalent amplification level and greater duration.
+     * @param potionEffectType the type of potion effect to check that the player has
+     * @param amplifier the amplifier of the potion effect (-1 to disable checking)
+     * @param duration the duration (in ticks) of the potion effect (-1 to disable checking)
+     * @return boolean
+     */
+    public boolean hasPotionEffect(PotionEffectType potionEffectType, int amplifier, int duration) {
+        for (PotionEffect potionEffect : this.getPlayer().getActivePotionEffects()) {
+            if (potionEffect.getType().equals(potionEffectType) && (potionEffect.getAmplifier() == amplifier || amplifier == -1) && (potionEffect.getDuration() >= duration || duration == -1)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean hasPower() {
+        return this.getPower() != null;
     }
 
     public void startPowerParticles() {
