@@ -65,8 +65,8 @@ public class Frost extends Power {
 
                     if (power instanceof Frost) {
                         if (online.getLocation().getBlockY() >= 140) {
-                            if (!playerPlus.hasPotionEffect(PotionEffectType.REGENERATION, 0, 40)) {
-                                online.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 0, false, false, true));
+                            if (!playerPlus.hasPotionEffect(PotionEffectType.REGENERATION, 0, 20)) {
+                                online.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 0, false, false, false));
                             }
                         }
                     }

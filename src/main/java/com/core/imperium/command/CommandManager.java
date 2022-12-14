@@ -3,6 +3,7 @@ package com.core.imperium.command;
 import com.core.imperium.Imperium;
 import com.core.imperium.command.subcommands.InfoCommand;
 import com.core.imperium.command.subcommands.MenuCommand;
+import com.core.imperium.command.subcommands.TopCommand;
 import com.core.imperium.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.Command;
@@ -30,6 +31,7 @@ public class CommandManager implements CommandExecutor {
 
         this.subCommands.add(new InfoCommand());
         this.subCommands.add(new MenuCommand());
+        this.subCommands.add(new TopCommand());
 
         Utils.consoleLog(Level.INFO, "CommandManager (Plugin command parsing/routing) online.");
     }

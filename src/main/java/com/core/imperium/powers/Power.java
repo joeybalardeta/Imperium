@@ -4,10 +4,12 @@ import com.core.imperium.Imperium;
 import com.core.imperium.particles.ParticleEffect;
 import com.core.imperium.player.PlayerPlus;
 import com.core.imperium.powers.custompowers.*;
+import com.core.imperium.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
+import java.util.logging.Level;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,8 @@ public class Power implements Listener {
         this.maxHealth = maxHealth;
 
         powerList.add(this);
+
+        this.registerPowerTasks();
     }
 
     public static void initPowers() {

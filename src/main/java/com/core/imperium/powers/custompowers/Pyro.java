@@ -53,6 +53,9 @@ public class Pyro extends Power {
             if (Utils.RNG(0.3)) {
                 event.getEntity().setFireTicks(20);
             }
+            if (event.getDamager().getFireTicks() != 0) {
+                event.setDamage(event.getDamage() * 1.2);
+            }
         }
     }
 

@@ -53,7 +53,7 @@ public class Avian extends Power {
                     PlayerPlus playerPlus = PlayerPlus.getPlayerPlus(online);
                     Power power = playerPlus.getPower();
 
-                    if (power == null) {
+                    if (!playerPlus.hasPower()) {
                         return;
                     }
 
@@ -63,7 +63,7 @@ public class Avian extends Power {
 
                     if (power instanceof Avian) {
                         if (online.getLocation().getBlockY() >= 140) {
-                            if (!playerPlus.hasPotionEffect(PotionEffectType.REGENERATION, 0, 40)) {
+                            if (!playerPlus.hasPotionEffect(PotionEffectType.REGENERATION, 0, 20)) {
                                 online.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 0, false, false, true));
                             }
                         }
