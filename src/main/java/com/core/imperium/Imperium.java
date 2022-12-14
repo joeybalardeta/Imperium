@@ -1,8 +1,10 @@
 package com.core.imperium;
 
 import com.core.imperium.command.CommandManager;
+import com.core.imperium.command.TabCompletionManager;
 import com.core.imperium.event.EventManager;
 import com.core.imperium.nexus.Nexus;
+import com.core.imperium.notifier.Notifier;
 import com.core.imperium.powers.Power;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,6 +18,9 @@ public final class Imperium extends JavaPlugin {
     public static EventManager eventManager;
     public static CommandManager commandManager;
     public static Nexus nexus;
+    public static Notifier notifier;
+
+    public static TabCompletionManager tabCompletionManager;
 
     public static Imperium getInstance(){
         return instance;
@@ -37,6 +42,12 @@ public final class Imperium extends JavaPlugin {
 
         nexus = new Nexus();
         nexus.init();
+
+        notifier = new Notifier();
+        notifier.scheduleNotifier();
+
+        tabCompletionManager = new TabCompletionManager();
+        tabCompletionManager.init();
 
         getLogger().log(Level.INFO, PLUGINNAME + " v" + VERSION + " is online!");
     }

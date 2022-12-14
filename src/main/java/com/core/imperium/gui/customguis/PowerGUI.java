@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PowerGUI  extends GUI {
     public PowerGUI() {
-        super(6, ChatColor.DARK_GRAY + "Powers");
+        super(6, "");
 
         List<Power> powers = Power.getPowerList();
         for (int i = 0; i < powers.size(); i++){

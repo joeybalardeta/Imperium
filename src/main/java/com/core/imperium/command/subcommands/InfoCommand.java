@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 public class InfoCommand extends SubCommand {
     public InfoCommand(){
         this.subCommandName = "info";
-        this.subCommandInfo = "Print out info about the Imperium plugin";
+        this.subCommandInfo = "print out info about the Imperium plugin";
         this.subCommandAliases = new String[0];
     }
 

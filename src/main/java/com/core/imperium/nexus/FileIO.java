@@ -66,7 +66,10 @@ public class FileIO {
 
     public void writePlayerPlus(PlayerPlus playerPlus){
         Nexus.playerDataConfig.set("users." + playerPlus.getPlayer().getUniqueId() + ".name", playerPlus.getPlayer().getDisplayName());
-        Nexus.playerDataConfig.set("users." + playerPlus.getPlayer().getUniqueId() + ".power", playerPlus.getPower().getPowerString());
+        if (playerPlus.hasPower()) {
+            Nexus.playerDataConfig.set("users." + playerPlus.getPlayer().getUniqueId() + ".power", playerPlus.getPower().getPowerString());
+        }
+
     }
 
     public void loadPlayerPlus(Player p){

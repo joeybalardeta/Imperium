@@ -10,7 +10,7 @@ import javax.swing.*;
 public class MenuCommand extends SubCommand {
     public MenuCommand(){
         this.subCommandName = "menu";
-        this.subCommandInfo = "Open a GUI for the command sender";
+        this.subCommandInfo = "open a GUI for the command sender";
         this.subCommandAliases = new String[0];
     }
 
