@@ -12,6 +12,7 @@ import com.core.imperium.powers.custompowers.Pyro;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 
@@ -98,12 +99,20 @@ public class PlayerPlus {
         return this.player;
     }
 
-    public double getPlayerDirectionFloat() {
-        double rotation = this.player.getLocation().getYaw() - 180;
+    public float getPlayerDirectionFloat() {
+        float rotation = this.player.getLocation().getYaw() - 180;
         if (rotation < 0) {
             rotation += 360.0;
         }
         return rotation;
+    }
+
+    /**
+     * Returns a normalized vector for the player's look direction
+     * @return Vector
+     */
+    public Vector getLookVector() {
+        return this.getPlayer().getLocation().getDirection().normalize();
     }
 
     public void reloadMaxHealth() {

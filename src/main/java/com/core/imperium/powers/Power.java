@@ -38,7 +38,7 @@ public class Power implements Listener {
         new Pyro();
         new Frost();
         new Terran();
-        // new Bolt(); it's not ready yet, more time needed to develop
+        // new Bolt();
 
         for (Power power : powerList) {
             Imperium.getInstance().getServer().getPluginManager().registerEvents(power, Imperium.getInstance());

@@ -16,6 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -49,39 +50,14 @@ public class Pyro extends Power {
 
         this.powerIcon.reloadIcon();
 
-        // this.registerPowerTasks();
+        this.registerPowerTasks();
     }
 
     protected void registerPowerTasks() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(Imperium.getInstance(), new Runnable() {
             @Override
             public void run(){
-                for (Player online : Bukkit.getOnlinePlayers()) {
 
-                    if (!online.getWorld().getEnvironment().equals(World.Environment.NETHER)) {
-                        continue;
-                    }
-                    for (Entity entity : online.getWorld().getEntities()) {
-                        if (!entity.isValid()) {
-                            continue;
-                        }
-
-                        if (!(entity instanceof Mob)) {
-                            continue;
-                        }
-
-                        Mob mob = (Mob) entity;
-
-                        if (mob.getTarget() != null && mob.getTarget() instanceof Player) {
-                            Player target = (Player) mob.getTarget();
-                            PlayerPlus targetPlus = PlayerPlus.getPlayerPlus(target);
-
-                            if (targetPlus.hasPower() && targetPlus.getPower() instanceof Pyro) {
-                                mob.setTarget(null);
-                            }
-                        }
-                    }
-                }
             }
         }, 0, 5L);
     }
@@ -121,5 +97,32 @@ public class Pyro extends Power {
                 event.setCancelled(true);
             }
         }
+    }
+
+    @EventHandler
+    public void onEntityTarget(EntityTargetLivingEntityEvent event) {
+        if (!(event.getTarget() != null && event.getTarget() instanceof Player)) {
+            return;
+        }
+
+        Player target = (Player) event.getTarget();
+        PlayerPlus targetPlus = PlayerPlus.getPlayerPlus(target);
+
+        if (!(targetPlus.hasPower() && targetPlus.getPower() instanceof Pyro)) {
+            return;
+        }
+
+        if (target.getWorld().getEnvironment() != World.Environment.NETHER) {
+            return;
+        }
+
+        Entity entity = event.getEntity();
+
+        if (entity instanceof Wolf || entity instanceof Cat || entity instanceof Parrot || entity instanceof Horse
+                || entity instanceof Ocelot || entity instanceof Donkey || entity instanceof Axolotl) {
+            return;
+        }
+
+        event.setCancelled(true);
     }
 }
