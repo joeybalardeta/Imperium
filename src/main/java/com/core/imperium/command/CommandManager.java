@@ -41,7 +41,7 @@ public class CommandManager implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)){
-            sender.sendMessage(ChatColor.RED + "Only players can run Commands+ commands!");
+            sender.sendMessage(ChatColor.RED + "Only players can run Imperium commands!");
             return false;
         }
 
