@@ -24,16 +24,12 @@ public class Power implements Listener {
         this.maxHealth = 20f;
 
         powerList.add(this);
-
-        this.registerPowerTasks();
     }
 
     public Power(float maxHealth) {
         this.maxHealth = maxHealth;
 
         powerList.add(this);
-
-        this.registerPowerTasks();
     }
 
     public static void initPowers() {
@@ -71,9 +67,5 @@ public class Power implements Listener {
 
     public void setParticles(String particles) {
         this.particles = particles;
-    }
-
-    protected void registerPowerTasks() {
-
     }
 }

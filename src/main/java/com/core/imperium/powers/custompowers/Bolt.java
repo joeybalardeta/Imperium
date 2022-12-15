@@ -40,5 +40,7 @@ public class Bolt extends Power {
         this.powerIcon.getAbilities().add(capacitor);
 
         this.powerIcon.reloadIcon();
+
+        // this.registerPowerTasks();
     }
 }

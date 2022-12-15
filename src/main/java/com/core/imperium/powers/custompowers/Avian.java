@@ -42,9 +42,11 @@ public class Avian extends Power {
         this.powerIcon.getAbilities().add(nightHawk);
 
         this.powerIcon.reloadIcon();
+
+        this.registerPowerTasks();
     }
 
-    @Override
+
     protected void registerPowerTasks() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(Imperium.getInstance(), new Runnable() {
             @Override
@@ -54,11 +56,11 @@ public class Avian extends Power {
                     Power power = playerPlus.getPower();
 
                     if (!playerPlus.hasPower()) {
-                        return;
+                        continue;
                     }
 
                     if (online.getWorld().getEnvironment().equals(Environment.NETHER)) {
-                        return;
+                        continue;
                     }
 
                     if (power instanceof Avian) {
@@ -70,7 +72,7 @@ public class Avian extends Power {
                     }
                 }
             }
-        }, 0, 10L);
+        }, 0, 5L);
     }
 
     @EventHandler

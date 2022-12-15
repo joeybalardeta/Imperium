@@ -6,6 +6,7 @@ import com.core.imperium.powers.Ability;
 import com.core.imperium.powers.AbilityType;
 import com.core.imperium.powers.Power;
 import com.core.imperium.powers.PowerIcon;
+import com.core.imperium.utils.Utils;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -17,6 +18,8 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.logging.Level;
 
 public class Hydro extends Power {
     public Hydro() {
@@ -34,17 +37,18 @@ public class Hydro extends Power {
         this.powerIcon.setDescription("Originating from the depths of the sea, Hydros have gained the ocean's favor and can command its power at will.");
 
         // abilities
-        Ability osmosis = new Ability(ChatColor.AQUA + "Osmosis", AbilityType.PASSIVE, "regenerate health faster while underwater");
-        Ability atlantean = new Ability(ChatColor.DARK_AQUA + "Atlantean", AbilityType.PASSIVE, "breathe underwater");
+        Ability osmosis = new Ability(ChatColor.AQUA + "Osmosis", AbilityType.PASSIVE, "regenerate health faster while in water or in the rain");
+        Ability atlantean = new Ability(ChatColor.DARK_AQUA + "Atlantean", AbilityType.PASSIVE, "permanent Conduit Power and Dolphin's Grace while in water");
 
         // adding the abilities to the GUI (specifically the lore of the ItemStack that is used to signify the power)
         this.powerIcon.getAbilities().add(osmosis);
         this.powerIcon.getAbilities().add(atlantean);
 
         this.powerIcon.reloadIcon();
+
+        this.registerPowerTasks();
     }
 
-    @Override
     protected void registerPowerTasks() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(Imperium.getInstance(), new Runnable() {
             @Override
@@ -54,24 +58,33 @@ public class Hydro extends Power {
                     Power power = playerPlus.getPower();
 
                     if (!playerPlus.hasPower()) {
-                        return;
+                        continue;
                     }
 
                     if (online.getWorld().getEnvironment().equals(World.Environment.NETHER)) {
-                        return;
+                        continue;
                     }
 
                     if (power instanceof Hydro) {
-                        if (online.isInWater()) {
+                        if (online.getLocation().getBlock().getType().equals(Material.WATER) || online.getLocation().clone().add(0, 1, 0).getBlock().getType().equals(Material.WATER)) {
                             if (!playerPlus.hasPotionEffect(PotionEffectType.REGENERATION, 0, 20)) {
                                 online.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 0, false, false, false));
-                                online.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 100, 0, false, false, false));
+                                online.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, 100, 0, false, false, false));
                             }
                         }
+
+                        if (!online.getWorld().isClearWeather()) {
+                            if (online.getLocation().getBlockY() >= (online.getWorld().getHighestBlockYAt(online.getLocation()))) {
+                                if (!playerPlus.hasPotionEffect(PotionEffectType.REGENERATION, 0, 20)) {
+                                    online.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 0, false, false, false));
+                                }
+                            }
+                        }
+
                     }
                 }
             }
-        }, 0, 10L);
+        }, 0, 5L);
     }
 
     @EventHandler

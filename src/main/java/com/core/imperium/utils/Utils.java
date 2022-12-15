@@ -24,7 +24,7 @@ public class Utils {
     }
 
     public static void consoleLog(Level level, String message){
-        Imperium.getInstance().getLogger().log(level, Imperium.PLUGINNAME + ": " + message);
+        Imperium.getInstance().getLogger().log(level, message);
     }
 
     public static boolean RNG(double chance) {

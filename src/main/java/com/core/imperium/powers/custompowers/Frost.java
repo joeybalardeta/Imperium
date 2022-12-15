@@ -35,7 +35,7 @@ public class Frost extends Power {
         this.powerIcon.setDescription("Frosts are often depicted as lone wanderers, not much is known about them, just don't let them freeze you.");
 
         // abilities
-        Ability arcticWind = new Ability(ChatColor.BLUE + "Arctic Wind", AbilityType.PASSIVE, "regenerate health faster at high altitudes");
+        Ability arcticWind = new Ability(ChatColor.BLUE + "Arctic Wind", AbilityType.PASSIVE, "regenerate health faster at high altitudes and on snow/ice");
         Ability blackIce = new Ability(ChatColor.DARK_PURPLE + "Black Ice", AbilityType.ACTIVE, "chance to freeze enemies on hit");
 
 
@@ -44,9 +44,11 @@ public class Frost extends Power {
         this.powerIcon.getAbilities().add(blackIce);
 
         this.powerIcon.reloadIcon();
+
+        this.registerPowerTasks();
     }
 
-    @Override
+
     protected void registerPowerTasks() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(Imperium.getInstance(), new Runnable() {
             @Override

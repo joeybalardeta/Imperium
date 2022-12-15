@@ -18,7 +18,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Terran extends Power {
     public Terran() {
-        super(24f);
+        super();
 
         this.powerString = "terran";
 
@@ -32,19 +32,18 @@ public class Terran extends Power {
         this.powerIcon.setDescription("From the core of the Earth, Terrans boast sturdy bodies and ground based abilities.");
 
         // abilities
-        Ability mountain = new Ability(ChatColor.GRAY + "Mountain", AbilityType.PASSIVE, "have two more hearts of health");
         Ability geothermics = new Ability(ChatColor.GREEN + "Geothermics", AbilityType.PASSIVE, "regenerate health faster while deep underground");
         Ability terraportation = new Ability(ChatColor.DARK_RED + "Terraportation", AbilityType.ACTIVE, "teleport upwards through the ground at will");
 
         // adding the abilities to the GUI (specifically the lore of the ItemStack that is used to signify the power)
-        this.powerIcon.getAbilities().add(mountain);
         this.powerIcon.getAbilities().add(geothermics);
         this.powerIcon.getAbilities().add(terraportation);
 
         this.powerIcon.reloadIcon();
+
+        this.registerPowerTasks();
     }
 
-    @Override
     protected void registerPowerTasks() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(Imperium.getInstance(), new Runnable() {
             @Override
@@ -54,11 +53,11 @@ public class Terran extends Power {
                     Power power = playerPlus.getPower();
 
                     if (!playerPlus.hasPower()) {
-                        return;
+                        continue;
                     }
 
                     if (online.getWorld().getEnvironment().equals(World.Environment.NETHER)) {
-                        return;
+                        continue;
                     }
 
                     if (power instanceof Terran) {
@@ -71,6 +70,6 @@ public class Terran extends Power {
                     }
                 }
             }
-        }, 0, 10L);
+        }, 0, 5L);
     }
 }
