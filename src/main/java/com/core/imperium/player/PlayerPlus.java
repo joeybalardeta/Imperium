@@ -9,6 +9,8 @@ import com.core.imperium.particles.particleeffects.SnowEffect;
 import com.core.imperium.particles.particleeffects.WaterEffect;
 import com.core.imperium.powers.Power;
 import com.core.imperium.powers.custompowers.Pyro;
+import org.bukkit.Material;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -145,6 +147,15 @@ public class PlayerPlus {
     public boolean hasPower() {
         return this.getPower() != null;
     }
+
+    public boolean isOnBlock(Material material) {
+        return this.getPlayer().getLocation().clone().subtract(0, 1, 0).getBlock().getType().equals(material);
+    }
+
+    public boolean isInBlock(Material material) {
+        return this.getPlayer().getLocation().getBlock().getType().equals(material) || this.getPlayer().getLocation().clone().add(0, 1, 0).getBlock().getType().equals(material);
+    }
+
 
     public void startPowerParticles() {
         if (this.getPower() == null) {

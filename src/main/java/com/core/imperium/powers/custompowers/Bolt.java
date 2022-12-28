@@ -82,6 +82,6 @@ public class Bolt extends Power {
                     }
                 }
             }
-        }, 0, 1L);
+        }, 0, 2L);
     }
 }

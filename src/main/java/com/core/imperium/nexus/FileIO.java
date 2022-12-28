@@ -81,6 +81,7 @@ public class FileIO {
             }
         }
         playerPlus.setPower(playerPower);
+        playerPlus.reloadPowerAugmentations();
     }
 
     public void scheduleFileTasks(){

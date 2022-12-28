@@ -71,10 +71,21 @@ public class Frost extends Power {
                                 online.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 0, false, false, false));
                             }
                         }
+
+                        if (playerPlus.isOnBlock(Material.ICE) || playerPlus.isOnBlock(Material.BLUE_ICE)
+                                || playerPlus.isOnBlock(Material.FROSTED_ICE) || playerPlus.isOnBlock(Material.PACKED_ICE)
+                                || playerPlus.isOnBlock(Material.SNOW_BLOCK) || playerPlus.isOnBlock(Material.POWDER_SNOW)
+                                || playerPlus.isInBlock(Material.POWDER_SNOW) || playerPlus.isInBlock(Material.SNOW)
+                                || playerPlus.isInBlock(Material.POWDER_SNOW_CAULDRON)) {
+                            if (!playerPlus.hasPotionEffect(PotionEffectType.REGENERATION, 0, 20)) {
+                                online.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 0, false, false, false));
+                                online.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 100, 0, false, false, false));
+                            }
+                        }
                     }
                 }
             }
-        }, 0, 10L);
+        }, 0, 2L);
     }
 
     @EventHandler

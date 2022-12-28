@@ -12,6 +12,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -66,10 +67,11 @@ public class Hydro extends Power {
                     }
 
                     if (power instanceof Hydro) {
-                        if (online.getLocation().getBlock().getType().equals(Material.WATER) || online.getLocation().clone().add(0, 1, 0).getBlock().getType().equals(Material.WATER)) {
+                        if (online.isInWater()) {
                             if (!playerPlus.hasPotionEffect(PotionEffectType.REGENERATION, 0, 20)) {
                                 online.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 0, false, false, false));
                                 online.addPotionEffect(new PotionEffect(PotionEffectType.CONDUIT_POWER, 100, 0, false, false, false));
+                                online.addPotionEffect(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, 100, 0, false, false, false));
                             }
                         }
 
@@ -84,7 +86,7 @@ public class Hydro extends Power {
                     }
                 }
             }
-        }, 0, 5L);
+        }, 0, 2L);
     }
 
     @EventHandler

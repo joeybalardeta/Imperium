@@ -70,6 +70,6 @@ public class Terran extends Power {
                     }
                 }
             }
-        }, 0, 5L);
+        }, 0, 2L);
     }
 }
